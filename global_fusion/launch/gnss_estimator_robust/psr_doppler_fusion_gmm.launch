@@ -1,0 +1,12 @@
+<launch>
+    <param name="slidingWindowSize"      type="int"     value="100000" />
+    <param name="NumberOfComponents"     type="int"     value="3" />
+    <param name="DefaultStdDev"          type="double"  value="0.7" />
+    <param name="ReduceComponents"       type="bool"    value="true" />
+    <param name="removeOffset"           type="bool"    value="true" />
+    <param name="GMMResidualWindowSize"  type="double"  value="1000" />
+    <param name="logPath"                type="string"  value="$(find global_fusion)/FGO_trajectoryllh_psr_dop_fusion.csv" />
+    
+    <node name="psr_doppler_fusion_gmm_node" pkg="global_fusion" type="psr_doppler_fusion_gmm_node" output="screen" />
+
+</launch>

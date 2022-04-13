@@ -1,0 +1,21 @@
+<!-- subscribe the raw measurements, perform snap shot GNSS single point positioning based pseudorange measurements. FGO_trajectoryllh_psr_dop_fusion -->
+<launch>
+
+    
+    <param name="sol_folder"               type="string" value="$(find global_fusion)/dataset/2022test_huawei_data/HW-FGO-TestData-for-HKPolyU/HW-FGO-TestData-for-HKPolyU/smartphone/20220120-SH-P50pro-LJJLD/evaluation/FGO_trajectoryllh_psr_dop_fusion.csv" />
+
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/dataset/2022test_huawei_data/HW-FGO-TestData-for-HKPolyU/HW-FGO-TestData-for-HKPolyU/smartphone/20220120-SH-P50pro-LJJLD/evaluation/hwpvt_nmea.csv" /> -->
+
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/dataset/2022test_huawei_data/HW-FGO-TestData-for-HKPolyU/HW-FGO-TestData-for-HKPolyU/smartphone/20220120-SH-P50pro-LJJLD/evaluation/WLS.csv" /> -->
+
+    <param name="gt_sol_folder"               type="string" value="$(find global_fusion)/dataset/2022test_huawei_data/HW-FGO-TestData-for-HKPolyU/HW-FGO-TestData-for-HKPolyU/smartphone/20220120-SH-P50pro-LJJLD/evaluation/novatel.txt" />
+
+
+
+    <param name="trajectory_path"               type="string" value="$(find global_fusion)/dataset/2022test_huawei_data/HW-FGO-TestData-for-HKPolyU/HW-FGO-TestData-for-HKPolyU/smartphone/20220120-SH-P50pro-LJJLD/evaluation/trajectory.csv" />
+    <param name="error_path"               type="string" value="$(find global_fusion)/dataset/2022test_huawei_data/HW-FGO-TestData-for-HKPolyU/HW-FGO-TestData-for-HKPolyU/smartphone/20220120-SH-P50pro-LJJLD/evaluation/error.csv" />
+
+
+    <node name="evaluate_gps_solution_hand_ana_node" pkg="global_fusion" type="evaluate_gps_solution_hand_ana_node" output="screen"/>
+
+</launch>

@@ -1,0 +1,16 @@
+<!-- subscribe the raw measurements, perform snap shot GNSS single point positioning based pseudorange measurements. FGO_trajectoryllh_psr_dop_fusion -->
+<launch>
+
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/WJ/FGO_trajectoryllh_psr_dop_fusion.csv" /> -->
+    <param name="sol_folder"               type="string" value="$(find global_fusion)/WJ/FGO_trajectoryllh_psr_dop_fusion_3dma.csv" />
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/WJ/WLS.csv" /> -->
+    <param name="gt_sol_folder"               type="string" value="$(find global_fusion)/WJ/GT_WJ.csv " />  
+    <!-- <param name="trajectory_path"               type="string" value="$(find global_fusion)/WJ/trajectoryBase.csv" />
+    <param name="error_path"               type="string" value="$(find global_fusion)/WJ_1/errorBase.csv" /> -->
+    <!-- <param name="trajectory_path"               type="string" value="$(find global_fusion)/WJ/trajectory.csv" /> -->
+    <!-- <param name="error_path"               type="string" value="$(find global_fusion)/WJ/error.csv" /> -->
+    <param name="trajectory_path"               type="string" value="$(find global_fusion)/WJ/trajectory_3dma.csv" />
+    <param name="error_path"               type="string" value="$(find global_fusion)/WJ/error_3dma.csv" />
+    <node name="evaluate_gps_solution_hand_ana_node" pkg="global_fusion" type="evaluate_gps_solution_hand_ana_node" output="screen"/>
+
+</launch>

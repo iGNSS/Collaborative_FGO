@@ -1,0 +1,17 @@
+<!-- subscribe the raw measurements, perform snap shot GNSS single point positioning based pseudorange measurements. FGO_trajectoryllh_psr_dop_fusion -->
+<launch>
+
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/QW/FGO_trajectoryllh_psr_dop_fusion.csv" /> -->
+    <param name="sol_folder"               type="string" value="$(find global_fusion)/QW/EKF_trajectoryllh_psr_dop_fusion.csv" />
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/QW/WLS.csv" /> -->
+    <!-- <param name="gt_sol_folder"               type="string" value="$(find global_fusion)/dataset/210912_QW_gdd/MANGKOK_GT1.csv" /> -->
+    <param name="gt_sol_folder"               type="string" value="$(find global_fusion)/QW/GT_QW.csv " />  
+    <!-- <param name="trajectory_path"               type="string" value="$(find global_fusion)/QW/trajectoryBase.csv" />
+    <param name="error_path"               type="string" value="$(find global_fusion)/QW/errorBase.csv" /> -->
+    <!-- <param name="trajectory_path"               type="string" value="$(find global_fusion)/QW/trajectory.csv" /> -->
+    <!-- <param name="error_path"               type="string" value="$(find global_fusion)/QW/error.csv" /> -->
+    <param name="trajectory_path"               type="string" value="$(find global_fusion)/QW/EKFtrajectory.csv" />
+    <param name="error_path"               type="string" value="$(find global_fusion)/QW/EKFerror.csv" />
+    <node name="evaluate_gps_solution_hand_ana_node" pkg="global_fusion" type="evaluate_gps_solution_hand_ana_node" output="screen"/>
+
+</launch>

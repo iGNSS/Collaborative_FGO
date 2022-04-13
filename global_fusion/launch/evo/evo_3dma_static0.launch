@@ -1,0 +1,17 @@
+<!-- subscribe the raw measurements, perform snap shot GNSS single point positioning based pseudorange measurements. FGO_trajectoryllh_psr_dop_fusion -->
+<launch>
+
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/3dma_static_0/static_mk.csv" /> -->
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/3dma_static_0/EKF_trajectoryllh_psr_dop_fusion.csv" /> -->
+    <param name="sol_folder"               type="string" value="$(find global_fusion)/3dma_static_0/FGO_trajectoryllh_psr_dop_fusion_sw_gnc20.csv" />
+    <!-- <param name="sol_folder"               type="string" value="$(find global_fusion)/TST_EAST/TST.csv" /> -->
+    <param name="gt_sol_folder"               type="string" value="$(find global_fusion)/3dma_static_0/2019_06_10_MK_S1_Mi8_groundtruth.csv " />  
+    <!-- <param name="trajectory_path"               type="string" value="$(find global_fusion)/3dma_static_0/trajectoryBase.csv" />
+    <param name="error_path"               type="string" value="$(find global_fusion)/3dma_static_0/errorBase.csv" /> -->
+    <param name="trajectory_path"               type="string" value="$(find global_fusion)/3dma_static_0/trajectory_sw_gnc20.csv" />
+    <param name="error_path"               type="string" value="$(find global_fusion)/3dma_static_0/error_sw_gnc20.csv" />
+    <!-- <param name="trajectory_path"               type="string" value="$(find global_fusion)/3dma_static_0/EKFtrajectory.csv" />
+    <param name="error_path"               type="string" value="$(find global_fusion)/3dma_static_0/EKFerror.csv" /> -->
+    <node name="evaluate_gps_solution_hand_ana_node" pkg="global_fusion" type="evaluate_gps_solution_hand_ana_node" output="screen"/>
+
+</launch>

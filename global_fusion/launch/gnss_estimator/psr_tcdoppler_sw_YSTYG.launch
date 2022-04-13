@@ -1,0 +1,43 @@
+<!-- subscribe the raw measurements, perform snap shot GNSS single point positioning based pseudorange measurements.  -->
+<launch>
+    <!-- <param name="logPath"                type="string"  value="/home/wws/SWO_FGO/src/global_fusion/HuaweiTestResults20210720/huawei_linyindao_performance_swo/FGO_trajectoryllh_psr_dop_fusion_swo_1.csv" /> -->
+
+    <!-- <param name="logPath"               type="string" value="$(find global_fusion)/WJ/FGO_trajectoryllh_psr_dop_fusion.csv" /> -->
+
+    <param name="logPath"               type="string" value="$(find global_fusion)/dataset/2022test_huawei_data/HW-FGO-TestData-for-HKPolyU/HW-FGO-TestData-for-HKPolyU/smartphone/20220125-SH-P50pro-YSTYG/evaluation/FGO_trajectoryllh_psr_dop_fusion.csv" />
+
+    
+
+    <param name="saveBatchResult"       type="bool" value="false" />
+
+    <param name="WLSLogPath"             type="string"  value="$(find global_fusion)/dataset/2022test_huawei_data/HW-FGO-TestData-for-HKPolyU/HW-FGO-TestData-for-HKPolyU/smartphone/20220125-SH-P50pro-YSTYG/evaluation/WLS.csv" />
+
+    <param name="slidingWindowSize"  type="int" value="150" />
+
+    <param name="enableTDCP"             type="bool" value="true" />
+    <param name="enableGNC"              type="bool" value="true" />
+    <param name="enableGMM"              type="bool" value="false" />
+    <param name="enableMarginalPrior"    type="bool" value="true" />
+
+    <param name="enablePolynominal"      type="bool" value="false" />
+
+    <param name="enableResReject"        type="bool" value="false" />
+
+    <param name="enableVelocityLimit"    type="bool" value="false" />
+    <param name="VelocityLimit"          type="double" value="1.0" />
+
+
+    <param name="GNC_mu"                type="double" value="1000000.0" />
+    <param name="GNC_c"                 type="double" value="0.5" />
+    <param name="GNC_r_max"             type="double" value="0.0" />
+    <param name="removeLargeOurliers"   type="bool" value="false" />
+
+    <param name="NumberOfComponents"     type="int"     value="3" />
+    <param name="DefaultStdDev"          type="double"  value="1" />
+    <param name="ReduceComponents"       type="bool"    value="false" />
+    <param name="removeOffset"           type="bool"    value="true" />
+    <param name="GMMResidualWindowSize"  type="double"  value="1000" />
+    
+    <node name="psr_tcdoppler_sw_node" pkg="global_fusion" type="psr_tcdoppler_sw_node" output="screen"  />
+
+</launch>

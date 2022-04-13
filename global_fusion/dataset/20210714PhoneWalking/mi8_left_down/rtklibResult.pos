@@ -1,0 +1,26 @@
+% program   : RTKLIB ver.2.4.2
+% inp file  : /home/wws/FGO-GNSSV1.0/src/global_fusion/dataset/20210714PhoneWalking/mi8_left_down/SMAR00GBR_R_20211931357.21o
+% inp file  : /home/wws/FGO-GNSSV1.0/src/global_fusion/dataset/20210714PhoneWalking/mi8_left_down/hksc193o.21o
+% inp file  : /home/wws/FGO-GNSSV1.0/src/global_fusion/dataset/20210714PhoneWalking/mi8_left_down/hksc193o.21f
+% inp file  : /home/wws/FGO-GNSSV1.0/src/global_fusion/dataset/20210714PhoneWalking/mi8_left_down/hksc193o.21n
+% obs start : 2021/07/12 13:58:12.0 GPST (week2166 136692.0s)
+% obs end   : 2021/07/12 14:58:46.0 GPST (week2166 140326.0s)
+% pos mode  : kinematic
+% freqs     : L1+L2
+% solution  : combined
+% elev mask : 15.0 deg
+% dynamics  : off
+% tidecorr  : off
+% ionos opt : broadcast
+% tropo opt : saastamoinen
+% ephemeris : broadcast
+% navi sys  : gps glonass galileo qzss sbas
+% amb res   : instantaneous
+% amb glo   : on
+% val thres : 3.0
+% antenna1  :                       ( 0.0000  0.0000  0.0000)
+% antenna2  :                       ( 0.0000  0.0000  0.0000)
+% ref pos   : 22.322172082, 114.141187963,   20.2386
+%
+% (lat/lon/height=WGS84/ellipsoidal,Q=1:fix,2:float,3:sbas,4:dgps,5:single,6:ppp,ns=# of satellites)
+%  GPST        , latitude(deg),longitude(deg), height(m),  Q, ns,  sdn(m),  sde(m),  sdu(m), sdne(m), sdeu(m), sdun(m),age(s), ratio

@@ -1,0 +1,16 @@
+<!-- subscribe the raw measurements, perform snap shot GNSS single point positioning based pseudorange measurements.  -->
+<launch>
+    <param name="GNC_mu"                type="double" value="1000000.0" />
+    <!-- number of frequency (1:L1,2:L1+L2,3:L1+L2+L5) -->
+    <param name="GNC_c"                 type="double" value="2.0" />
+    <param name="GNC_r_max"             type="double" value="0.0" />
+    <param name="removeLargeOurliers"   type="bool" value="true" />
+    <param name="slidingWindowSize"     type="int" value="100000" />
+
+    <!-- <param name="logPath"               type="string" value="$(find global_fusion)/FGO_trajectoryllh_psr_dop_fusion.csv" /> -->
+
+    <param name="logPath"               type="string" value="$(find global_fusion)/GDD/FGO_trajectoryllh_psr_dop_fusion.csv" />
+    
+    <node name="psr_doppler_fusion_gnc_gm_node" pkg="global_fusion" type="psr_doppler_fusion_gnc_gm_node" output="screen" />
+
+</launch>

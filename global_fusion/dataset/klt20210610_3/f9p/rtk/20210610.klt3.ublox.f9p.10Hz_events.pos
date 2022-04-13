@@ -1,0 +1,26 @@
+% program   : RTKPOST ver.demo5 b33e
+% inp file  : C:\Users\Administrator\Dropbox\1. Research Papers && UC Berkeley\63. 3D Vision Adied GNSS-RTK in Urban Canyons\20210610\extracted\3_klt_3\10hz\f9p\rtk\20210610.klt3.ublox.f9p.10Hz.obs
+% inp file  : C:\Users\Administrator\Dropbox\1. Research Papers && UC Berkeley\63. 3D Vision Adied GNSS-RTK in Urban Canyons\20210610\extracted\3_klt_3\10hz\f9p\rtk\hksc1610.21o
+% inp file  : C:\Users\Administrator\Dropbox\1. Research Papers && UC Berkeley\63. 3D Vision Adied GNSS-RTK in Urban Canyons\20210610\extracted\3_klt_3\10hz\f9p\rtk\hksc1610.21n
+% inp file  : C:\Users\Administrator\Dropbox\1. Research Papers && UC Berkeley\63. 3D Vision Adied GNSS-RTK in Urban Canyons\20210610\extracted\3_klt_3\10hz\f9p\rtk\hksc1610.21f
+% obs start : 2021/06/10 03:52:31.0 GPST (week2161 359551.0s)
+% obs end   : 2021/06/10 03:59:17.0 GPST (week2161 359957.0s)
+% pos mode  : kinematic
+% freqs     : L1+L2/E5b
+% solution  : forward
+% elev mask : 15.0 deg
+% dynamics  : on
+% tidecorr  : off
+% ionos opt : broadcast
+% tropo opt : saastamoinen
+% ephemeris : broadcast
+% navi sys  : gps glonass galileo qzss beidou
+% amb res   : instantaneous
+% amb glo   : fix and hold
+% val thres : 3.0
+% antenna1  :                       ( 0.0000  0.0000  0.0000)
+% antenna2  :                       ( 0.0000  0.0000  0.0000)
+% ref pos   : 22.322172082  114.141187963    20.2386
+%
+% (lat/lon/height=WGS84/ellipsoidal,Q=1:fix,2:float,3:sbas,4:dgps,5:single,6:ppp,ns=# of satellites)
+%  GPST          latitude(deg) longitude(deg)  height(m)   Q  ns   sdn(m)   sde(m)   sdu(m)  sdne(m)  sdeu(m)  sdun(m) age(s)  ratio

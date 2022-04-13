@@ -1,0 +1,26 @@
+% program   : RTKLIB ver.2.4.2
+% inp file  : /home/wws/FGO-GNSSV1.0/src/global_fusion/dataset/HuaweiWatch20210517/tallDistrict1/Higeo2Rinex_1.obs
+% inp file  : /home/wws/FGO-GNSSV1.0/src/global_fusion/dataset/HuaweiWatch20210517/tallDistrict1/hksc1370.21o
+% inp file  : /home/wws/FGO-GNSSV1.0/src/global_fusion/dataset/HuaweiWatch20210517/tallDistrict1/hksc1370.21f
+% inp file  : /home/wws/FGO-GNSSV1.0/src/global_fusion/dataset/HuaweiWatch20210517/tallDistrict1/hksc1370.21n
+% obs start : 2021/05/17 07:33:26.0 GPST (week2158 113606.0s)
+% obs end   : 2021/05/17 08:01:08.0 GPST (week2158 115268.0s)
+% pos mode  : kinematic
+% freqs     : L1+L2
+% solution  : combined
+% elev mask : 15.0 deg
+% dynamics  : off
+% tidecorr  : off
+% ionos opt : broadcast
+% tropo opt : saastamoinen
+% ephemeris : broadcast
+% navi sys  : gps glonass galileo qzss sbas
+% amb res   : instantaneous
+% amb glo   : on
+% val thres : 3.0
+% antenna1  :                       ( 0.0000  0.0000  0.0000)
+% antenna2  :                       ( 0.0000  0.0000  0.0000)
+% ref pos   : 22.322172082, 114.141187963,   20.2386
+%
+% (lat/lon/height=WGS84/ellipsoidal,Q=1:fix,2:float,3:sbas,4:dgps,5:single,6:ppp,ns=# of satellites)
+%  GPST        , latitude(deg),longitude(deg), height(m),  Q, ns,  sdn(m),  sde(m),  sdu(m), sdne(m), sdeu(m), sdun(m),age(s), ratio
