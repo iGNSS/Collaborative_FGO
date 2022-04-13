@@ -86,22 +86,23 @@ class psr_tcdoppler_swopriorfactor_fusion
     ros::NodeHandle nh;
 
     /* ros subscriber */
-    ros::Publisher pub_WLSENU, pub_FGOENU, pub_global_path, pub_fgo_llh, pub_global_path_poly;
-    std::map<double, nlosExclusion::GNSS_Raw_Array> gnss_raw_map;
-    std::map<double, nav_msgs::Odometry> doppler_map;
+    ros::Publisher pub_WLSENU_0,pub_WLSENU_1,pub_WLSENU_2,pub_FGOENU_0,pub_FGOENU_1, pub_FGOENU_2,pub_global_path_0,pub_global_path_1,pub_global_path_2,pub_fgo_llh_0,pub_fgo_llh_1,pub_fgo_llh_2,pub_global_path_poly_0,pub_global_path_poly_1,pub_global_path_poly_2;
+    std::map<double, nlosExclusion::GNSS_Raw_Array> gnss_raw_map_0,gnss_raw_map_1,gnss_raw_map_2;
+    std::map<double, nav_msgs::Odometry> doppler_map_0,doppler_map_1,doppler_map_2;
 
 
    /*for data transfer station*/
-    std::queue<std::pair<double, nlosExclusion::GNSS_Raw_Array>> gnss_raw_queen;
-    std::queue<std::pair<double, nav_msgs::Odometry>> doppler_queen;
+    std::queue<std::pair<double, nlosExclusion::GNSS_Raw_Array>> gnss_raw_queen_0,gnss_raw_queen_1,gnss_raw_queen_2;
+    std::queue<std::pair<double, nav_msgs::Odometry>> doppler_queen_0,doppler_queen_1,doppler_queen_2;
 
     GNSS_Tools m_GNSS_Tools; // utilities
 
     /* subscriber */
-    std::unique_ptr<message_filters::Subscriber<nlosExclusion::GNSS_Raw_Array>> gnss_raw_array_sub;
-    std::unique_ptr<message_filters::Subscriber<nav_msgs::Odometry>> doppler_sub;
-    std::unique_ptr<message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>> syncdoppler2GNSSRaw;
-
+    std::unique_ptr<message_filters::Subscriber<nlosExclusion::GNSS_Raw_Array>> gnss_raw_array_sub_0,gnss_raw_array_sub_1,gnss_raw_array_sub_2;
+    std::unique_ptr<message_filters::Subscriber<nav_msgs::Odometry>> doppler_sub_0,doppler_sub_1,doppler_sub_2;
+    std::unique_ptr<message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>> syncdoppler2GNSSRaw_0;
+    std::unique_ptr<message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>> syncdoppler2GNSSRaw_1;
+    std::unique_ptr<message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>> syncdoppler2GNSSRaw_2;
     /* thread lock for data safe */
     std::mutex m_gnss_raw_mux;
 
@@ -115,16 +116,16 @@ class psr_tcdoppler_swopriorfactor_fusion
     double prev_time_frame =0;
 
     /* latest state in ENU */
-    Eigen::Matrix<double ,3,1> FGOENULatest;
+    Eigen::Matrix<double ,3,1> FGOENULatest_0,FGOENULatest_1,FGOENULatest_2;
 
     /* path in ENU */
-    nav_msgs::Path fgo_path, fgo_path_poly;
+    nav_msgs::Path fgo_path_0,fgo_path_1,fgo_path_2, fgo_path_poly_0,fgo_path_poly_1,fgo_path_poly_2;
 
     /* log path for FGO result */
-    std::string logPath;
+    std::string logPath_0,logPath_1,logPath_2;
 
     /* log path for WLS result */
-    std::string WLSLogPath, SDMPath;
+    std::string WLSLogPath_0,WLSLogPath_1,WLSLogPath_2, SDMPath;
 
     /* parameters for GNC infinite: convex; zero: non-convex */
     bool enableGNC = false;
@@ -235,20 +236,38 @@ public:
 
         
 
-        std::ofstream foutWLS(WLSLogPath, std::ios::out); // clean the file
-        foutWLS.close();
-        std::cout << "folder path for save WLS result " << WLSLogPath << std::endl;
+        std::ofstream foutWLS0(WLSLogPath_0, std::ios::out); // clean the file for the 1st receiver
+        std::ofstream foutWLS1(WLSLogPath_1, std::ios::out); // clean the file for the 1st receiver
+        std::ofstream foutWLS2(WLSLogPath_2, std::ios::out); // clean the file for the 1st receiver
+        foutWLS0.close();
+        foutWLS1.close();
+        foutWLS2.close();
+        std::cout << "folder path for save WLS result " << WLSLogPath_0<<" WLSLogPath_1:  " <<WLSLogPath_1<<"WLSLogPath_2:   "<<WLSLogPath_2<<std::endl;
 
         /* thread for factor graph optimization */
         optimizationThread = std::thread(&psr_tcdoppler_swopriorfactor_fusion::solveOptimization, this);
         
-        pub_WLSENU = nh.advertise<nav_msgs::Odometry>("WLSGoGPS", 100); // 
-        pub_FGOENU = nh.advertise<nav_msgs::Odometry>("FGO", 100); //  
-        pub_fgo_llh = nh.advertise<sensor_msgs::NavSatFix>("fgo_llh", 100);
+        pub_WLSENU_0 = nh.advertise<nav_msgs::Odometry>("WLSGoGPS_0", 100); // 1st receiver WLS result 
+        pub_WLSENU_1 = nh.advertise<nav_msgs::Odometry>("WLSGoGPS_1", 100); // 2nd receiver WLS result
+        pub_WLSENU_2 = nh.advertise<nav_msgs::Odometry>("WLSGoGPS_2", 100); // 3rd receiver WLS result
 
-        gnss_raw_array_sub.reset(new message_filters::Subscriber<nlosExclusion::GNSS_Raw_Array>(nh, "/gnss_preprocessor_node/GNSSPsrCarRov1", 10000));
-        doppler_sub.reset(new message_filters::Subscriber<nav_msgs::Odometry>(nh, "/gnss_preprocessor_node/GNSSDopVelRov1", 10000));
-        syncdoppler2GNSSRaw.reset(new message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>(*gnss_raw_array_sub, *doppler_sub, 10000));
+        pub_FGOENU_0 = nh.advertise<nav_msgs::Odometry>("FGO_0", 100); // 
+        pub_FGOENU_1 = nh.advertise<nav_msgs::Odometry>("FGO_1", 100); // 
+        pub_FGOENU_2 = nh.advertise<nav_msgs::Odometry>("FGO_2", 100); //  
+
+        pub_fgo_llh_0 = nh.advertise<sensor_msgs::NavSatFix>("fgo_llh_0", 100);
+        pub_fgo_llh_1 = nh.advertise<sensor_msgs::NavSatFix>("fgo_llh_1", 100);
+        pub_fgo_llh_2 = nh.advertise<sensor_msgs::NavSatFix>("fgo_llh_2", 100);
+
+        gnss_raw_array_sub_0.reset(new message_filters::Subscriber<nlosExclusion::GNSS_Raw_Array>(nh, "/gnss_preprocessor_node/GNSSPsrCarRov1", 10000));
+        gnss_raw_array_sub_1.reset(new message_filters::Subscriber<nlosExclusion::GNSS_Raw_Array>(nh, "/gnss_preprocessor_node/GNSSPsrCarRov2", 10000));
+        gnss_raw_array_sub_2.reset(new message_filters::Subscriber<nlosExclusion::GNSS_Raw_Array>(nh, "/gnss_preprocessor_node/GNSSPsrCarRov3", 10000));
+        doppler_sub_0.reset(new message_filters::Subscriber<nav_msgs::Odometry>(nh, "/gnss_preprocessor_node/GNSSDopVelRov1", 10000));
+        doppler_sub_1.reset(new message_filters::Subscriber<nav_msgs::Odometry>(nh, "/gnss_preprocessor_node/GNSSDopVelRov1", 10000));
+        doppler_sub_2.reset(new message_filters::Subscriber<nav_msgs::Odometry>(nh, "/gnss_preprocessor_node/GNSSDopVelRov1", 10000));
+        syncdoppler2GNSSRaw_0.reset(new message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>(*gnss_raw_array_sub_0, *doppler_sub_0, 10000));
+        syncdoppler2GNSSRaw_1.reset(new message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>(*gnss_raw_array_sub_1, *doppler_sub_1, 10000));
+        syncdoppler2GNSSRaw_2.reset(new message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>(*gnss_raw_array_sub_2, *doppler_sub_2, 10000));
 
         syncdoppler2GNSSRaw->registerCallback(boost::bind(&psr_tcdoppler_swopriorfactor_fusion::gnssraw_doppler_msg_callback,this, _1, _2));
 
