@@ -48,57 +48,75 @@ GNSS_Tools m_GNSS_Tools; // utilities
 class FactorGraph{
 public:
     /* continuous data stream */
-    std::map<double, nlosExclusion::GNSS_Raw_Array> gnss_raw_map;
-    std::map<double, nav_msgs::Odometry> doppler_map;
-    std::vector<ceres::ResidualBlockId> PseudIDs;
-    std::vector<double> PseudVars;
-    std::vector<ceres::ResidualBlockId>DoppIDs; 
-    std::vector<ceres::ResidualBlockId>PriorIDs; 
+    std::map<double, nlosExclusion::GNSS_Raw_Array> gnss_raw_map_0,gnss_raw_map_1,gnss_raw_map_2;
+    std::map<double, nav_msgs::Odometry> doppler_map_0,doppler_map_1,doppler_map_2;
+    std::vector<ceres::ResidualBlockId> PseudIDs_0,PseudIDs_1,PseudIDs_2;
+    std::vector<double> PseudVars_0,PseudVars_0,PseudVars_2;
+    std::vector<ceres::ResidualBlockId>DoppIDs_0,DoppIDs_1,DoppIDs_2; 
+    std::vector<ceres::ResidualBlockId>PriorIDs_0,PriorIDs_1,PriorIDs_2; 
     /* Ceres solver object */
     // ceres::Problem problem;
     // ceres::Solver::Options options;
     // ceres::Solver::Summary summary;
-    ceres::LossFunction *psr_loss_function;
-    ceres::LossFunction *dop_loss_function;
-    ceres::LossFunction *loss_function;
+    ceres::LossFunction *psr_loss_function_0,*psr_loss_function_1,*psr_loss_function_2;
+    ceres::LossFunction *dop_loss_function_0,*dop_loss_function_1,*dop_loss_function_2;
+    ceres::LossFunction *loss_function_0,*loss_function_1,*loss_function_2;
 
     /* size of factor graph */
     int sizeOfFactorGraph = 0;
 
-    struct States 
+    struct States_0 
     {  
     /* state saved in vector pair */
         Eigen::Vector3d position;
         Eigen::Vector3d clocks;
         Eigen::Vector3d velocity;
-    } states;
+    } states_0;
+
+    struct States_1 
+    {  
+    /* state saved in vector pair */
+        Eigen::Vector3d position;
+        Eigen::Vector3d clocks;
+        Eigen::Vector3d velocity;
+    } states_1;
+
+    struct States_2 
+    {  
+    /* state saved in vector pair */
+        Eigen::Vector3d position;
+        Eigen::Vector3d clocks;
+        Eigen::Vector3d velocity;
+    } states_2;
 
     /*reserve the solved solution from current sliding window*/
-    std::map<double, States> slidingwindow_map;
-    std::map<double, States>::iterator iter;
+    std::map<double, States> slidingwindow_map_0,slidingwindow_map_1,slidingwindow_map_2;
+    std::map<double, States>::iterator iter_0,iter_1,iter_2;
    
 
     /* state array of factor graph */
-    std::vector<double*> state_array, last_state_array;
+    std::vector<double*> state_array_0,state_array_1,state_array_2, last_state_array_0,last_state_array_1,last_state_array_2;
 
-    std::vector<double*> state_array_vel;// velocity in ECEF
+    std::vector<double*> state_array_vel_0,state_array_vel_1,state_array_vel_2;// velocity in ECEF
 
-    std::vector<double*> state_array_acc;// acceleration in ECEF
+    std::vector<double*> state_array_acc_0,state_array_acc_1,state_array_acc_2;// acceleration in ECEF
 
-    std::vector<double*> state_array_jer;// jerk in ECEF
+    std::vector<double*> state_array_jer_0,state_array_jer_1,state_array_jer_2;// jerk in ECEF
 
-    std::vector<int> satNumPerT;
+    std::vector<int> satNumPerT_0,satNumPerT_1,satNumPerT_2;
 
-    int* gps_sec_array;
+    int* gps_sec_array_0;
+    int* gps_sec_array_1;
+    int* gps_sec_array_2;
 
-    std::vector<int> state_gps_sec_vec;
+    std::vector<int> state_gps_sec_vec_0,state_gps_sec_vec_1,state_gps_sec_vec_2;
 
     /* apply weighting when state is initialized via FGO */
     bool* initialized;
 
     /* state saved in vector pair */
-    std::vector<std::pair<double, Eigen::Vector3d>> Ps;
-    std::vector<std::pair<double, Eigen::Vector2d>> Clocks;
+    std::vector<std::pair<double, Eigen::Vector3d>> Ps_0,Ps_1,Ps_2;
+    std::vector<std::pair<double, Eigen::Vector2d>> Clocks_0,Clocks_1,Clocks_2;
 
     /* size of the last factor graph optimization */
     int lastFactorGraphSize = 0;
@@ -130,17 +148,17 @@ public:
     GaussianMixtureModel gaussianMixtureModel;
 
     /* vector to save factor ids of pseudorange */
-    std::vector<ceres::ResidualBlockId> psrIDs;
+    std::vector<ceres::ResidualBlockId> psrIDs_0,psrIDs_1,psrIDs_2;
 
-    std::vector<ceres::ResidualBlockId> psrIDsTmp;
+    std::vector<ceres::ResidualBlockId> psrIDsTmp_0,psrIDsTmp_1,psrIDsTmp_2;
 
     double latestRecCloDrift = 0;
 
     /** save the trajectory for polynomial models*/
-    std::vector<Eigen::Matrix<double ,3,1>> ENUTrajectory;
+    std::vector<Eigen::Matrix<double ,3,1>> ENUTrajectory_0,ENUTrajectory_1,ENUTrajectory_2;
     std::vector<double> normalizedResiduals;
     PolynomialEstimation polynomial_estimation;
-    Eigen::Matrix<double ,3,1> posePrediction;
+    Eigen::Matrix<double ,3,1> posePrediction_0,posePrediction_1,posePrediction_2;
     // posePrediction.setZero();
     // posePrediction(0,0) = 0;
     // posePrediction(1) = 0;
@@ -342,8 +360,12 @@ public:
     /* clear data stream */
     bool clearDataStream()
     {
-        gnss_raw_map.clear();
-        doppler_map.clear();
+        gnss_raw_map_0.clear();
+        gnss_raw_map_1.clear();
+        gnss_raw_map_2.clear();
+        doppler_map_0.clear();
+        doppler_map_1.clear();
+        doppler_map_2.clear();
         return true;
     }
 
@@ -472,7 +494,7 @@ public:
     /* get data stream size */  
     int getDataStreamSize()
     {
-        measSize = gnss_raw_map.size();
+        measSize = gnss_raw_map_0.size();
         return measSize;
     }
 

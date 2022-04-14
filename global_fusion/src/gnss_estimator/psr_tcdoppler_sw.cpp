@@ -269,11 +269,14 @@ public:
         syncdoppler2GNSSRaw_1.reset(new message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>(*gnss_raw_array_sub_1, *doppler_sub_1, 10000));
         syncdoppler2GNSSRaw_2.reset(new message_filters::TimeSynchronizer<nlosExclusion::GNSS_Raw_Array, nav_msgs::Odometry>(*gnss_raw_array_sub_2, *doppler_sub_2, 10000));
 
-        syncdoppler2GNSSRaw->registerCallback(boost::bind(&psr_tcdoppler_swopriorfactor_fusion::gnssraw_doppler_msg_callback,this, _1, _2));
+        syncdoppler2GNSSRaw->registerCallback(boost::bind(&psr_tcdoppler_swopriorfactor_fusion::gnssraw_doppler_msg_callback_0,this, _1, _2));
+        syncdoppler2GNSSRaw->registerCallback(boost::bind(&psr_tcdoppler_swopriorfactor_fusion::gnssraw_doppler_msg_callback_1,this, _1, _2));
+        syncdoppler2GNSSRaw->registerCallback(boost::bind(&psr_tcdoppler_swopriorfactor_fusion::gnssraw_doppler_msg_callback_2,this, _1, _2));
+        pub_global_path_0 = nh.advertise<nav_msgs::Path>("/FGOGlobalPath", 100); // 
+        pub_global_path_1 = nh.advertise<nav_msgs::Path>("/FGOGlobalPath", 100); // 
+        pub_global_path_2 = nh.advertise<nav_msgs::Path>("/FGOGlobalPath", 100); // 
 
-        pub_global_path = nh.advertise<nav_msgs::Path>("/FGOGlobalPath", 100); // 
-
-        pub_global_path_poly = nh.advertise<nav_msgs::Path>("/FGOGlobalPathPoly", 100); // 
+        pub_global_path_poly_0 = nh.advertise<nav_msgs::Path>("/FGOGlobalPathPoly", 100); // 
         
         /* reference point for ENU calculation */
         ENU_ref<< ref_lon, ref_lat, ref_alt;
@@ -806,7 +809,7 @@ public:
    * @return void
    @ 
    */
-    void gnssraw_doppler_msg_callback(const nlosExclusion::GNSS_Raw_ArrayConstPtr& gnss_msg, const nav_msgs::OdometryConstPtr& doppler_msg)
+    void gnssraw_doppler_msg_callback_0(const nlosExclusion::GNSS_Raw_ArrayConstPtr& gnss_msg, const nav_msgs::OdometryConstPtr& doppler_msg)
     {
         m_gnss_raw_mux.lock();
         hasNewData = true;
